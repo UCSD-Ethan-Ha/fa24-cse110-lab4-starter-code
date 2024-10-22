@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import {AppContext} from "./context/AppContext";
+//idk why i cant import this LOL
+
 const AddExpenseForm = () => {
   // Exercise: Consume the AppContext here
+  const {expenses, setExpenses, addBudget} = useContext(AppContext);
 
   // Exercise: Create name and cost to state variables
 
