@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
-import {AppContext} from "./context/AppContext";
-//idk why i cant import this LOL
+import {AppContext} from "../../context/AppContext"
 
 const AddExpenseForm = () => {
   // Exercise: Consume the AppContext here
