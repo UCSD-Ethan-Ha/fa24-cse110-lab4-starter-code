@@ -3,6 +3,9 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import App from "./App";
 import { AppProvider, AppContext } from './context/AppContext';
 
+//idk if we need to import these
+//import ExpenseList from '../Expense/ExpenseList';
+//import AddExpenseForm from '../Expense/AddExpenseForm';
 
 
 
@@ -29,14 +32,14 @@ test("create an expense", () => {
   const addedExpense = screen.getByText("Apples");
   expect(addedExpense).toBeInTheDocument();
 
-  const addedCost = screen.getByText("100");
+  const addedCost = screen.getByText("$100");
   expect(addedCost).toBeInTheDocument();
 
-  const totalSpent = screen.getByTestId('Spent so far:');
-  const remaining = screen.getByTestId('Remaining');
+  const totalSpent = screen.getByText("Spent so far: $100");
+  const remaining = screen.getByTestId("Remaining: $900");
   
-  expect(totalSpent).toBe(100); 
-  expect(remaining).toBe(900); 
+  expect(totalSpent).toBeInTheDocument(); 
+  expect(remaining).toBeInTheDocument(); 
 
 });
 
