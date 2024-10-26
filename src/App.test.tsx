@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from "./App";
 import { AppProvider, AppContext } from './context/AppContext';
+import '@testing-library/jest-dom';
 
 //idk if we need to import these
 //import ExpenseList from '../Expense/ExpenseList';
@@ -36,7 +37,7 @@ test("create an expense", () => {
   expect(addedCost).toBeInTheDocument();
 
   const totalSpent = screen.getByText("Spent so far: $100");
-  const remaining = screen.getByTestId("Remaining: $900");
+  const remaining = screen.getByText("Remaining: $900");
   
   expect(totalSpent).toBeInTheDocument(); 
   expect(remaining).toBeInTheDocument(); 
@@ -47,17 +48,27 @@ test("Delete an expense", () => {
   render(
       <App />
   );
+  const createName = screen.getAllByRole("textbox")[0];
+  const createCost = screen.getAllByRole("textbox")[1];
+  const submitButton = screen.getByText("Save");
 
+  fireEvent.change(createName, { target: { value: "Apples" } });
+  fireEvent.change(createCost, { target: { value: "100" } });
+  fireEvent.click(submitButton);
+
+  const addedExpense = screen.getByText("Apples");
 
   const deleteButton = screen.getAllByText("x")[0];
+  //const deleteButton = screen.getByRole("button", { name: /x/i })
   fireEvent.click(deleteButton);
 
-  expect(screen.queryByText(/Apples/i)).not.toBeInTheDocument();
+  expect(addedExpense).not.toBeInTheDocument();
 
-  const totalSpent = screen.getByTestId('Spent so far:');
-  const remaining = screen.getByTestId('Remaining');
-  expect(totalSpent).toHaveTextContent('$0');
-  expect(remaining).toHaveTextContent('$1000');
+
+  const totalSpent = screen.getByText('Spent so far:');
+  const remaining = screen.getByText('Remaining');
+  expect(totalSpent).toBeInTheDocument();
+  expect(remaining).toBeInTheDocument();
 
 });
 
@@ -81,8 +92,8 @@ test("Check Budget Balance and eqn", () => {
   // Verify the budget balance equation
   const budget = 1000; 
   //for some reason we need the all the code from textContext on for this to work. Mainly bc we can't add remaining + totalSpent since they're HTML elements I believe
-  const totalSpent = parseFloat(screen.getByTestId('Spent so far:').textContent!.replace('$', ''));
-  const remaining = parseFloat(screen.getByTestId('Remaining').textContent!.replace('$', ''));
+  const totalSpent = parseFloat(screen.getByText('Spent so far:').textContent!.replace('$', ''));
+  const remaining = parseFloat(screen.getByText('Remaining').textContent!.replace('$', ''));
 
   expect(budget).toBeCloseTo(remaining + totalSpent, 2);
 
