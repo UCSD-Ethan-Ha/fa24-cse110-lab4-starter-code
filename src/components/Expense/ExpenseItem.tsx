@@ -4,7 +4,7 @@ import {AppContext} from  "../../context/AppContext";
 
 const ExpenseItem = (currentExpense: Expense) => {
   // Exercise: Consume the AppContext here
-  const {expenses, setExpenses, addBudget} = useContext(AppContext);
+  const {expenses, setExpenses, setBudget} = useContext(AppContext);
 
 
   const handleDeleteExpense = (currentExpense: Expense) => {
