@@ -65,8 +65,8 @@ test("Delete an expense", () => {
   expect(addedExpense).not.toBeInTheDocument();
 
 
-  const totalSpent = screen.getByText('Spent so far:');
-  const remaining = screen.getByText('Remaining');
+  const totalSpent = screen.getByText('Spent so far: $0');
+  const remaining = screen.getByText('Remaining: $1000');
   expect(totalSpent).toBeInTheDocument();
   expect(remaining).toBeInTheDocument();
 
@@ -92,6 +92,7 @@ test("Check Budget Balance and eqn", () => {
   // Verify the budget balance equation
   const budget = 1000; 
   //for some reason we need the all the code from textContext on for this to work. Mainly bc we can't add remaining + totalSpent since they're HTML elements I believe
+  //I think these two lines are causing this test to fail..?
   const totalSpent = parseFloat(screen.getByText('Spent so far:').textContent!.replace('$', ''));
   const remaining = parseFloat(screen.getByText('Remaining').textContent!.replace('$', ''));
 
