@@ -7,8 +7,8 @@ test("create an expense", () => {
         <AddExpenseForm />
     );
 
-    const nameInput = screen.getByLabelText(/Name/i);
-    const costInput = screen.getByLabelText(/Cost/i);
+    const nameInput = screen.getByPlaceholderText("");
+    const costInput = screen.getByPlaceholderText("0");
     const submitButton = screen.getByRole("button", { name: /Save/});
 
     fireEvent.change(nameInput, { target: { value: "Apples" } });
@@ -33,7 +33,7 @@ test("create an expense", () => {
 
     const nameInput = screen.getByLabelText(/Name/);
     const costInput = screen.getByLabelText(/Cost/);
-    const submitButton = screen.getByRole("button", { name: /Save/i });
+    const submitButton = screen.getByRole("button", { name: /Save/i});
 
     fireEvent.change(nameInput, { target: { value: "Apples" } });
     fireEvent.change(costInput, { target: { value: "100" } });
@@ -50,4 +50,6 @@ test("create an expense", () => {
 
 
 });
+
+
 
