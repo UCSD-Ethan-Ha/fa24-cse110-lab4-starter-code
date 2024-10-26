@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import {AppContext} from "../../context/AppContext";
+import {useId} from 'react';
 
 const AddExpenseForm = () => {
   // Exercise: Consume the AppContext here
@@ -14,13 +15,17 @@ const AddExpenseForm = () => {
 
     // Exercise: Add add new expense to expenses context array
     const newExpense = {
+      id : (Math.random()).toString(),
       name : name,
       cost : cost,
     };
 
-    //can't figure out how to add the expense might be missing smth
-    //addBudget(newExpense);
 
+    setExpenses((prevExpenses) => prevExpenses.concat(newExpense));
+
+    // Default values for new entry.
+    setName("");
+    setCost(0);
   };
 
   return (
@@ -33,9 +38,9 @@ const AddExpenseForm = () => {
             type="text"
             className="form-control"
             id="name"
-            value={""}
             // HINT: onChange={}
             onChange = {(event) => setName(event.target.value)}
+            value = {name}
           ></input>
         </div>
         <div className="col-sm">
@@ -45,9 +50,9 @@ const AddExpenseForm = () => {
             type="text"
             className="form-control"
             id="cost"
-            value={0}
             // HINT: onChange={}
             onChange = {(event) => setCost(parseFloat(event.target.value))}
+            value = {cost}
           ></input>
         </div>
         <div className="col-sm">

@@ -8,7 +8,12 @@ const ExpenseItem = (currentExpense: Expense) => {
 
 
   const handleDeleteExpense = (currentExpense: Expense) => {
-    // Exercise: Remove expense from expenses context array
+      // Exercise: Remove expense from expenses context array
+      for(const entry of expenses){
+        if(entry.id === currentExpense.id){
+          setExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== entry.id));
+      }
+  }
   };
 
   return (

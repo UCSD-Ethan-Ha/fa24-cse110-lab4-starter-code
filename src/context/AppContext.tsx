@@ -31,7 +31,7 @@ export const AppProvider = (props: any) => {
       value={{
         expenses: expenses,
         setExpenses: setExpenses,
-        addBudget: addBudget,
+         addBudget: addBudget,
       }}
     >
       {props.children}
