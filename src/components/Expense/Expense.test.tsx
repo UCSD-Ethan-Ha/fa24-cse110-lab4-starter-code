@@ -7,6 +7,30 @@ test("create an expense", () => {
         <AddExpenseForm />
     );
 
+    const nameInput = screen.getByLabelText(/Name/i);
+    const costInput = screen.getByLabelText(/Cost/i);
+    const submitButton = screen.getByRole("button", { name: /Save/});
+
+    fireEvent.change(nameInput, { target: { value: "Apples" } });
+    fireEvent.change(costInput, { target: { value: "100" } });
+    fireEvent.click(submitButton);
+
+
+    const addedExpense = screen.getByText("Apples");
+    expect(addedExpense).toBeInTheDocument();
+
+    const addedCost = screen.getByText("100"); 
+    expect(addedCost).toBeInTheDocument();
+
+
+
+});
+
+test("create an expense", () => {
+    render(
+        <AddExpenseForm />
+    );
+
     const nameInput = screen.getByLabelText(/Name/);
     const costInput = screen.getByLabelText(/Cost/);
     const submitButton = screen.getByRole("button", { name: /Save/i });
@@ -17,12 +41,13 @@ test("create an expense", () => {
 
     screen.debug();
 
-    const addedExpense = screen.getByText(/Apples/);
+    const addedExpense = screen.getByText("Apples");
     expect(addedExpense).toBeInTheDocument();
 
-    const addedCost = screen.getByText(/100/); 
+    const addedCost = screen.getByText("100"); 
     expect(addedCost).toBeInTheDocument();
 
 
 
 });
+
