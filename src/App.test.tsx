@@ -12,7 +12,7 @@ import '@testing-library/jest-dom';
 
 test('renders learn react link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
+  const linkElement = screen.getByText(/My Budget Planner/i);
   expect(linkElement).toBeInTheDocument();
 });
 
@@ -89,12 +89,14 @@ test("Check Budget Balance and eqn", () => {
   fireEvent.change(createCost, { target: { value: '100' } });
   fireEvent.click(submitButton);
 
-  // Verify the budget balance equation
-  const budget = 1000; 
-  //for some reason we need the all the code from textContext on for this to work. Mainly bc we can't add remaining + totalSpent since they're HTML elements I believe
-  //I think these two lines are causing this test to fail..?
-  const totalSpent = parseFloat(screen.getByText('Spent so far:').textContent!.replace('$', ''));
-  const remaining = parseFloat(screen.getByText('Remaining').textContent!.replace('$', ''));
+
+  const budget = 1000;
+  const totalSpentElement = screen.getByText(/Spent so far:/i);
+  const remainingElement = screen.getByText(/Remaining:/i);
+
+  // Parse out #s
+  const totalSpent = parseFloat(totalSpentElement.textContent!.replace(/[^0-9.-]+/g, ''));
+  const remaining = parseFloat(remainingElement.textContent!.replace(/[^0-9.-]+/g, ''));
 
   expect(budget).toBeCloseTo(remaining + totalSpent, 2);
 
