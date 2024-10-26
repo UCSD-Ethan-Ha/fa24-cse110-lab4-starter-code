@@ -4,9 +4,6 @@ import App from "./App";
 import { AppProvider, AppContext } from './context/AppContext';
 import '@testing-library/jest-dom';
 
-//idk if we need to import these
-//import ExpenseList from '../Expense/ExpenseList';
-//import AddExpenseForm from '../Expense/AddExpenseForm';
 
 
 
@@ -94,11 +91,10 @@ test("Check Budget Balance and eqn", () => {
   const totalSpentElement = screen.getByText(/Spent so far:/i);
   const remainingElement = screen.getByText(/Remaining:/i);
 
-  // Parse out #s
-  const totalSpent = parseFloat(totalSpentElement.textContent!.replace(/[^0-9.-]+/g, ''));
-  const remaining = parseFloat(remainingElement.textContent!.replace(/[^0-9.-]+/g, ''));
+  const totalSpent = parseFloat(totalSpentElement.textContent!.replace(/[^0-9]+/g, ''));
+  const remaining = parseFloat(remainingElement.textContent!.replace(/[^0-9]+/g, ''));
 
-  expect(budget).toBeCloseTo(remaining + totalSpent, 2);
+  expect(budget).toBe(remaining + totalSpent);
 
 });
 
