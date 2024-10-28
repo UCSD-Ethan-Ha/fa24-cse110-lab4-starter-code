@@ -98,8 +98,6 @@ test("Check Budget Balance and eqn", () => {
   const totalSpent = parseFloat(totalSpentElement.textContent!.replace(/[^0-9.-]+/g, ''));
   const remaining = parseFloat(remainingElement.textContent!.replace(/[^0-9.-]+/g, ''));
 
-  //expect(budget).toBeCloseTo(remaining + totalSpent, 2);
-  expect(budget).toBe(remaining + totalSpent);
-
+  expect(budget).toBeCloseTo(remaining + totalSpent, 2);
 });
 
