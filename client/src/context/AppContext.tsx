@@ -9,10 +9,12 @@ interface AppContextType {
   setExpenses: React.Dispatch<React.SetStateAction<Expense[]>>;
   //idk if it's supposed to return anything but if it is then replace "void" with w/e
   addBudget: (expenses: Expense) => void;
+  budget: number;
 }
 
 const initialState: AppContextType = {
   expenses: [],
+  budget: 1000,
   setExpenses: () => { },
   addBudget: () => {},
 };
@@ -27,12 +29,13 @@ export const AppProvider = (props: any) => {
     setExpenses((prevExpenses) => prevExpenses.concat(newExpense));
   };
 
-
+  const [budget, setBudget] = useState<number>(initialState.budget);
 
   return (
     <AppContext.Provider
       value={{
         expenses: expenses,
+        budget: budget,
         setExpenses: setExpenses,
         addBudget: addBudget,
       }}

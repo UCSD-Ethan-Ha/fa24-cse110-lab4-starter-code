@@ -9,7 +9,7 @@ const AddExpenseForm = () => {
   const {expenses, setExpenses} = useContext(AppContext);
 
   // Exercise: Create name and cost to state variables
-  const [name, setName] = useState<string>("");
+  const [description, setName] = useState<string>("");
   const [cost, setCost] = useState<number>(0);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,11 +18,12 @@ const AddExpenseForm = () => {
     // Exercise: Add add new expense to expenses context array
     const newExpense = {
       id : (Math.random()).toString(),
-      name : name,
+      description : description,
       cost : cost,
     };
 
-    createExpense(newExpense); // Create new expense in the database
+    //i think this is what we need to do for part 
+    //createExpense(newExpense);
     setExpenses((prevExpenses) => prevExpenses.concat(newExpense));
 
     // Default values for new entry.
@@ -42,7 +43,7 @@ const AddExpenseForm = () => {
             id="name"
             // HINT: onChange={}
             onChange = {(event) => setName(event.target.value)}
-            value = {name}
+            value = {description}
           ></input>
         </div>
         <div className="col-sm">
