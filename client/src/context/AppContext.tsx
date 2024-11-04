@@ -28,7 +28,7 @@ export const AppProvider = (props: any) => {
   const addBudget = (newExpense: Expense) => {
     setExpenses((prevExpenses) => prevExpenses.concat(newExpense));
   };
-
+  
   const [budget, setBudget] = useState<number>(initialState.budget);
 
   return (
