@@ -1,8 +1,9 @@
-import {API_BASE_URL} from "../constants/constants";
+import { API_BASE_URL } from "../constants/constants";
 import { Expense } from "../types/types";
 
 // Function to create an expense in the backend. Method: POST
 export const createExpense = async (expense: Expense): Promise<Expense> => {
+	console.log("expense in createExpense", expense);
 	const response = await fetch(`${API_BASE_URL}/expenses`, {
     	method: "POST",
     	headers: {

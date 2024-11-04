@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import {AppContext} from "../../context/AppContext";
 import {useId} from 'react';
+import {createExpense} from '../../utils/expense-utils';
 
 
 const AddExpenseForm = () => {
@@ -11,24 +12,30 @@ const AddExpenseForm = () => {
   // Exercise: Create name and cost to state variables
   const [description, setName] = useState<string>("");
   const [cost, setCost] = useState<number>(0);
+  const[idVal, setId] = useState<number>(1);
+
+  const handleId = () => {
+    setId(idVal + 1);
+  }
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    
     // Exercise: Add add new expense to expenses context array
     const newExpense = {
-      id : (Math.random()).toString(),
+      id : (3 + idVal).toString(), // accounts for required two in constants
       description : description,
       cost : cost,
     };
 
     //i think this is what we need to do for part 
-    //createExpense(newExpense);
+    createExpense(newExpense);
     setExpenses((prevExpenses) => prevExpenses.concat(newExpense));
-
     // Default values for new entry.
     setName("");
     setCost(0);
+    handleId();
   };
 
   return (
