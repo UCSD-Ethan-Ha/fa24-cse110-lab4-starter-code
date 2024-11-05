@@ -1,6 +1,6 @@
 import { AppContext, AppProvider } from "../../context/AppContext";
 import { useContext, useEffect, useState } from "react";
-import { fetchBudget } from "../../utils/budget-utils";
+import { fetchBudget, updateBudget } from "../../utils/budget-utils";
 
 const Budget = () => {
   const { budget, setBudget } = useContext(AppContext)
@@ -12,16 +12,18 @@ const Budget = () => {
   
     // Function to load expenses and handle errors
     const loadBudget = async () => {
-    try {
-      const budget = await fetchBudget();
-      setBudget(budget);
-    } catch (err: any) {
-      console.log(err.message);
-    }
+      try {
+        const budget = await fetchBudget();
+        console.log("Fetched budget:", budget); // Debugging log
+        setBudget(budget);
+      } catch (err: any) {
+        console.log("Error fetching budget:", err.message);
+      }
     };
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
+      updateBudget(tempBudget);
       setBudget(tempBudget);
     };
   
@@ -29,7 +31,7 @@ const Budget = () => {
     <form onSubmit={(event) => onSubmit(event)}>
       <div className="alert alert-secondary p-3 d-flex align-items-center justify-content-between">
         <div className="col-sm">
-          <label htmlFor="budget">Budget</label>
+          <label htmlFor="budget">Budget:</label>
           <input
             required
             type="text"
