@@ -15,7 +15,11 @@ export const fetchBudget = async (): Promise<number> => {
         if (!response.ok) {
           throw new Error("Failed to fetch budget");
         }
-    return response.json();
+        let budget = response.json().then((jsonResponse) => {
+          console.log("data in fetchExpenses", jsonResponse);
+          return jsonResponse.data;
+      });
+      return budget;
 };
 
 // Function to update the budget in the backend. Method: PUT

@@ -1,9 +1,10 @@
 import { AppContext, AppProvider } from "../../context/AppContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { fetchBudget } from "../../utils/budget-utils";
 
 const Budget = () => {
   const { budget, setBudget } = useContext(AppContext)
+  const [tempBudget, setTemp] = useState<number>(budget);
 
   useEffect(() => {
     loadBudget();
@@ -18,12 +19,35 @@ const Budget = () => {
       console.log(err.message);
     }
     };
+
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      setBudget(tempBudget);
+    };
   
   return (
-    <div className="alert alert-secondary p-3 d-flex align-items-center justify-content-between">
-      <div>Budget: {`$${budget}`}</div>
-    </div>
+    <form onSubmit={(event) => onSubmit(event)}>
+      <div className="alert alert-secondary p-3 d-flex align-items-center justify-content-between">
+        <div className="col-sm">
+          <label htmlFor="budget">Budget</label>
+          <input
+            required
+            type="text"
+            className="form-control"
+            id="budget"
+            // HINT: onChange={}
+            onChange = {(event) => setTemp(parseFloat(event.target.value))}
+            value = {tempBudget}
+          ></input>
+        </div>
+        <div className="col-sm">
+          <button type="submit" className="btn btn-primary mt-3">
+            Edit
+          </button>
+        </div>
+      </div>
+    </form>
+
   );
 };
-
 export default Budget;
