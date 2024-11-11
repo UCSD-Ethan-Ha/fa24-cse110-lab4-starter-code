@@ -12,12 +12,17 @@ const AddExpenseForm = () => {
   const [description, setName] = useState<string>("");
   const [cost, setCost] = useState<number>(0);
 
+  const[idVal, setId] = useState<number>(1);
+  const handleId = () => {
+    setId(idVal + 1);
+  }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Exercise: Add add new expense to expenses context array
     const newExpense = {
-      id : (Math.random()).toString(),
+      id : (idVal).toString(),
       description : description,
       cost : cost,
     };
@@ -29,6 +34,7 @@ const AddExpenseForm = () => {
     // Default values for new entry.
     setName("");
     setCost(0);
+    handleId();
   };
 
   return (
